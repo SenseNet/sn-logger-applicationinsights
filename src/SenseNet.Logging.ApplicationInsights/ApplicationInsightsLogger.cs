@@ -6,6 +6,9 @@ using System.Linq;
 using SenseNet.Diagnostics;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("SenseNet.Logging.ApplicationInsights.Tests")]
 
 namespace SenseNet.Logging.ApplicationInsights
 {
@@ -43,10 +46,10 @@ namespace SenseNet.Logging.ApplicationInsights
             }
         }
 
-        private static void AddProperties(ISupportProperties telemetry, object message, ICollection<string> categories, 
+        internal static void AddProperties(ISupportProperties telemetry, object message, ICollection<string> categories, 
             int eventId, string title, IDictionary<string, object> properties)
         {
-            telemetry.Properties.Add("Message", message?.ToString().Substring(0, MaxValueLength));
+            telemetry.Properties.Add("Message", message?.ToString().MaximizeLength(MaxValueLength));
             telemetry.Properties.Add("EventId", eventId.ToString());
 
             if (categories != null && categories.Count > 0)
@@ -57,7 +60,8 @@ namespace SenseNet.Logging.ApplicationInsights
 
             if (properties?.Any() ?? false)
                 foreach (var property in properties.Where(p => !string.IsNullOrEmpty(p.Key)))
-                    telemetry.Properties.Add(property.Key.Substring(MaxPropertyNameLength), property.Value?.ToString().Substring(0, MaxValueLength));
+                    telemetry.Properties.Add(property.Key.MaximizeLength(MaxPropertyNameLength),
+                        property.Value?.ToString().MaximizeLength(MaxValueLength));
         }
     }
 }

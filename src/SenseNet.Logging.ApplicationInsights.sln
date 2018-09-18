@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseNet.Logging.ApplicationInsights", "SenseNet.Logging.ApplicationInsights\SenseNet.Logging.ApplicationInsights.csproj", "{28BD3317-2F3F-4EB9-8C98-F2FEEAAD756F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenseNet.Logging.ApplicationInsights", "SenseNet.Logging.ApplicationInsights\SenseNet.Logging.ApplicationInsights.csproj", "{28BD3317-2F3F-4EB9-8C98-F2FEEAAD756F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenseNet.Logging.ApplicationInsights.Tests", "SenseNet.Logging.ApplicationInsights.Tests\SenseNet.Logging.ApplicationInsights.Tests.csproj", "{483F2A88-1E27-4FA3-A905-BC67BD3C328D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{28BD3317-2F3F-4EB9-8C98-F2FEEAAD756F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28BD3317-2F3F-4EB9-8C98-F2FEEAAD756F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28BD3317-2F3F-4EB9-8C98-F2FEEAAD756F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{483F2A88-1E27-4FA3-A905-BC67BD3C328D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483F2A88-1E27-4FA3-A905-BC67BD3C328D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483F2A88-1E27-4FA3-A905-BC67BD3C328D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483F2A88-1E27-4FA3-A905-BC67BD3C328D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
