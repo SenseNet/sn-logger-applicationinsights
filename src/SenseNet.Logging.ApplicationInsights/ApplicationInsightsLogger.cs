@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using SenseNet.Diagnostics;
 using Microsoft.ApplicationInsights;
@@ -8,9 +9,13 @@ using Microsoft.ApplicationInsights.DataContracts;
 
 namespace SenseNet.Logging.ApplicationInsights
 {
+    [SuppressMessage("ReSharper", "ConvertToConstant.Local")]
     public class ApplicationInsightsLogger : IEventLogger
     {
         private static readonly string DefaultEventName = "sensenet";
+        private static readonly int MaxPropertyNameLength = 512;
+        private static readonly int MaxValueLength = 8192;
+
         private readonly TelemetryClient _telemetry = new TelemetryClient();
 
         public ApplicationInsightsLogger()
@@ -41,7 +46,7 @@ namespace SenseNet.Logging.ApplicationInsights
         private static void AddProperties(ISupportProperties telemetry, object message, ICollection<string> categories, 
             int eventId, string title, IDictionary<string, object> properties)
         {
-            telemetry.Properties.Add("Message", message?.ToString());
+            telemetry.Properties.Add("Message", message?.ToString().Substring(0, MaxValueLength));
             telemetry.Properties.Add("EventId", eventId.ToString());
 
             if (categories != null && categories.Count > 0)
@@ -51,8 +56,8 @@ namespace SenseNet.Logging.ApplicationInsights
                 telemetry.Properties.Add("Title", title);
 
             if (properties?.Any() ?? false)
-                foreach (var property in properties)
-                    telemetry.Properties.Add(property.Key, property.Value.ToString());
+                foreach (var property in properties.Where(p => !string.IsNullOrEmpty(p.Key)))
+                    telemetry.Properties.Add(property.Key.Substring(MaxPropertyNameLength), property.Value?.ToString().Substring(0, MaxValueLength));
         }
     }
 }
